@@ -30,7 +30,7 @@ public class ToDoListFunctions {
 		
 	}
 	
-	public void PrioritySort(){
+	public void prioritySort(){
 						
 	}
 	
