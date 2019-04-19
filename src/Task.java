@@ -7,6 +7,17 @@ public class Task {
 	private String startDate;
 	private String endDate;
 	
+	public Task(int priority, String description, String dueDate, String status, String startDate, String endDate) {
+		
+		this.priority = priority;
+		this.description = description;
+		this.dueDate = dueDate;
+		this.status = status;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		
+		}	
+	
 	public Integer getPriority() {
 		return priority;
 	}
