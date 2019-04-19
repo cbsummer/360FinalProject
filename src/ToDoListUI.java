@@ -82,6 +82,7 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.setEnabled(false);
         taskTable.setFillsViewportHeight(true);
         taskTable.setName(""); // NOI18N
+        taskTable.setRowSelectionAllowed(true);
         taskTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(taskTable);
 
