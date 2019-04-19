@@ -1,15 +1,28 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Andrew
  */
+
+
+
 public class ToDoListUI extends javax.swing.JFrame {
 
+	ArrayList<Task> taskList = new ArrayList<>();
     /**
      * Creates new form ToDoListUI
      */    
@@ -49,12 +62,12 @@ public class ToDoListUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         taskUpdate = new javax.swing.JButton();
         openTask = new javax.swing.JButton();
+        taskUpdate1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "To DO List Unlimited 2019", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
-        taskTable.setAutoCreateRowSorter(true);
         taskTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -82,7 +95,6 @@ public class ToDoListUI extends javax.swing.JFrame {
         
         taskTable.setAutoscrolls(false);
         taskTable.setCellSelectionEnabled(false);
-        taskTable.setColumnSelectionAllowed(true);
         taskTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         taskTable.setFillsViewportHeight(true);
         taskTable.setName(""); // NOI18N
@@ -90,7 +102,18 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(taskTable);
         taskTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
+     
+        
+        //Applies a sorter to the coumns of the table.
+        //Sort keys are used to keep the tasks added to the list in the order that the table is currently sorted by.
+        TableRowSorter<TableModel> taskTableSort = new TableRowSorter<>(taskTable.getModel());
+        taskTableSort.setSortsOnUpdates(true);
+        List<RowSorter.SortKey> key = new ArrayList<RowSorter.SortKey>();
+        key.add(new RowSorter.SortKey(0, SortOrder.ASCENDING));
+        taskTableSort.setSortKeys(key);
+        taskTable.setRowSorter(taskTableSort);
+        
+        
         addTask.setText("Add");
         addTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +267,13 @@ public class ToDoListUI extends javax.swing.JFrame {
             }
         });
 
+        taskUpdate1.setText("Edit");
+        taskUpdate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                taskUpdate1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -255,6 +285,8 @@ public class ToDoListUI extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(addTask)
+                            .addGap(4, 4, 4)
+                            .addComponent(taskUpdate1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(taskUpdate)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,7 +296,7 @@ public class ToDoListUI extends javax.swing.JFrame {
                                 .addComponent(saveTask)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(openTask)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(printTask))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -283,7 +315,8 @@ public class ToDoListUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addTask)
                     .addComponent(deleteTask)
-                    .addComponent(taskUpdate))
+                    .addComponent(taskUpdate)
+                    .addComponent(taskUpdate1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -298,15 +331,43 @@ public class ToDoListUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 498, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        
+    private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {       
+    	    		
+    		boolean isInteger = true;
+    		
+    		try {
+    			Integer.parseInt(taskPriority.getText());
+       		} catch (NumberFormatException e) {
+       			isInteger = false;
+       		}
+    	
+    		if(isInteger == false) {
+    			JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
+      		} else {
+	    		int data1 = Integer.parseInt(taskPriority.getText());
+	    	    String data2 = taskDescription.getText();
+	    	    String data3 = taskDueDate.getText();
+	    	    String data4 = taskStatus.getSelectedItem().toString();
+	    	    String data5 = taskStartDate.getText();
+	    	    String data6 = taskEndDate.getText();
+    	        	    
+	    	    Object[] row = { data1, data2, data3, data4, data5, data6 };
+	    	    DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
+    	    
+	    	    model.addRow(row);
+	    	    
+	    	    Task task = new Task(data1, data2, data3, data4, data5, data6);
+    	    
+	    	    taskList.add(task);
+    		}
+    	    
     }                                       
 
     private void taskUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                           
@@ -352,6 +413,10 @@ public class ToDoListUI extends javax.swing.JFrame {
     private void saveTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
+
+    private void taskUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    }                                           
 
     /**
      * @param args the command line arguments
@@ -411,5 +476,6 @@ public class ToDoListUI extends javax.swing.JFrame {
     private javax.swing.JComboBox taskStatus;
     private javax.swing.JTable taskTable;
     private javax.swing.JButton taskUpdate;
+    private javax.swing.JButton taskUpdate1;
     // End of variables declaration                   
 }
