@@ -29,7 +29,6 @@ public class ToDoListFunctions {
 	public void sort() {
 		
 	}
-
 	
 	public void PrioritySort(){
 						
