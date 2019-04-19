@@ -18,11 +18,11 @@ public class ToDoListFunctions {
 		
 	}
 	
-	public load() {
+	public void load() {
 		
 	}
 	
-	public print() {
+	public void print() {
 		
 	}
 	

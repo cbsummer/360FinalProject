@@ -7,7 +7,7 @@ package my.todolist;
 
 /**
  *
- * @author Caitlin
+ * @author Andrew
  */
 public class ToDoListUI extends javax.swing.JFrame {
 
@@ -79,6 +79,8 @@ public class ToDoListUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        
+        
         taskTable.setAutoscrolls(false);
         taskTable.setCellSelectionEnabled(false);
         taskTable.setColumnSelectionAllowed(true);
