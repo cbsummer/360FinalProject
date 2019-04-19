@@ -53,29 +53,30 @@ public class ToDoListUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "To DO List Unlimited 2019", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "To DO List Unlimited 2019",javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
+        		javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
         taskTable.setAutoCreateRowSorter(true);
-        taskTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1), "change clothes", null, null, null, null},
-                { new Integer(2), "excercise", null, null, null, null},
-                { new Integer(3), "Pack up Kids", null, null, null, null},
-                { new Integer(24), "pick up kids", null, null, null, null},
-                { new Integer(0), "Order something", null, null, null, null}
-            },
-            new String [] {
-                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        
+        taskTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][], new String [] {
+                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date"}) {
+        	
+	            Class[] types = new Class [] {
+	                java.lang.Integer.class,
+	                java.lang.Object.class,
+	                java.lang.Object.class,
+	                java.lang.Object.class,
+	                java.lang.Object.class,
+	                java.lang.Object.class
+	            };
+	
+	            public Class getColumnClass(int columnIndex) {
+	                return types [columnIndex];
+	            }
+        	}
+        );
+        
+        
         taskTable.setColumnSelectionAllowed(true);
         taskTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         taskTable.setEnabled(false);
