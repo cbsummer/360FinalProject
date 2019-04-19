@@ -7,7 +7,7 @@ public class ToDoListFunctions {
 	}
 	
 	public void delete() {
-				
+		
 	}
 	
 	public void modify() {
