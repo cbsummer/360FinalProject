@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package my.todolist;
 
 /**
  *
@@ -15,7 +16,7 @@ public class ToDoListUI extends javax.swing.JFrame {
      */    
     public ToDoListUI() {
         initComponents();
-        
+     
     }
 
     /**
@@ -49,42 +50,46 @@ public class ToDoListUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         taskUpdate = new javax.swing.JButton();
         openTask = new javax.swing.JButton();
-        taskError = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "To DO List Unlimited 2019",javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-        		javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "To DO List Unlimited 2019", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
         taskTable.setAutoCreateRowSorter(true);
-        
-        taskTable.setModel(new javax.swing.table.DefaultTableModel(new Object [][], new String [] {
-                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date"}) {
-        	
-	            Class[] types = new Class [] {
-	                java.lang.Integer.class,
-	                java.lang.Object.class,
-	                java.lang.Object.class,
-	                java.lang.Object.class,
-	                java.lang.Object.class,
-	                java.lang.Object.class
-	            };
-	
-	            public Class getColumnClass(int columnIndex) {
-	                return types [columnIndex];
-	            }
-        	}
-        );
-        
-        
-        taskTable.setColumnSelectionAllowed(true);
+        taskTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "test", "test", null, null, null, null},
+                { new Integer(2), "test2", "test2", null, null, null, null},
+                { new Integer(3), "test3", "test3", null, null, null, null}
+            },
+            new String [] {
+                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date", "null"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        taskTable.setAutoscrolls(false);
+        taskTable.setCellSelectionEnabled(false);
         taskTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        taskTable.setEnabled(false);
         taskTable.setFillsViewportHeight(true);
         taskTable.setName(""); // NOI18N
         taskTable.setRowSelectionAllowed(true);
         taskTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(taskTable);
+        taskTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         addTask.setText("Add");
         addTask.addActionListener(new java.awt.event.ActionListener() {
@@ -239,13 +244,6 @@ public class ToDoListUI extends javax.swing.JFrame {
             }
         });
 
-        taskError.setBackground(new java.awt.Color(240, 240, 240));
-        taskError.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                taskErrorActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -254,15 +252,13 @@ public class ToDoListUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(addTask)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(taskUpdate)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteTask)
-                            .addGap(18, 18, 18)
-                            .addComponent(taskError))
+                            .addComponent(deleteTask))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(saveTask)
@@ -287,8 +283,7 @@ public class ToDoListUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addTask)
                     .addComponent(deleteTask)
-                    .addComponent(taskUpdate)
-                    .addComponent(taskError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(taskUpdate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -321,10 +316,6 @@ public class ToDoListUI extends javax.swing.JFrame {
     private void openTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
-
-    private void taskErrorActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
 
     private void printTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
@@ -415,7 +406,6 @@ public class ToDoListUI extends javax.swing.JFrame {
     private javax.swing.JTextField taskDescription;
     private javax.swing.JFormattedTextField taskDueDate;
     private javax.swing.JFormattedTextField taskEndDate;
-    private javax.swing.JTextField taskError;
     private javax.swing.JTextField taskPriority;
     private javax.swing.JFormattedTextField taskStartDate;
     private javax.swing.JComboBox taskStatus;
