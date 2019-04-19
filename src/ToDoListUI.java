@@ -7,7 +7,7 @@ package my.todolist;
 
 /**
  *
- * @author Andrew
+ * @author Caitlin
  */
 public class ToDoListUI extends javax.swing.JFrame {
 
@@ -58,19 +58,17 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.setAutoCreateRowSorter(true);
         taskTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "test", "test", null, null, null, null},
-                { new Integer(2), "test2", "test2", null, null, null, null},
-                { new Integer(3), "test3", "test3", null, null, null, null}
+
             },
             new String [] {
-                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date", "null"
+                "Priority", "Description", "Due Date", "Status", "Start Date", "End Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -83,6 +81,7 @@ public class ToDoListUI extends javax.swing.JFrame {
         });
         taskTable.setAutoscrolls(false);
         taskTable.setCellSelectionEnabled(false);
+        taskTable.setColumnSelectionAllowed(true);
         taskTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         taskTable.setFillsViewportHeight(true);
         taskTable.setName(""); // NOI18N
