@@ -452,9 +452,11 @@ public class ToDoListUI extends javax.swing.JFrame {
     }                                               
 
     private void deleteTaskActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-
-    }                                          
+    	
+    	ToDoListFunctions.delete(taskList, taskTable);
+    	
+    }
+    	                                     
 
     private void saveTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
