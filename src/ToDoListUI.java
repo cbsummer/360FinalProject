@@ -346,6 +346,16 @@ public class ToDoListUI extends javax.swing.JFrame {
     private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {       
     	    		
     		boolean isInteger = true;
+    		boolean duplicateDescription = false;
+    		
+    		// Checks for duplicate descriptions
+    		// Added .trim() so that whitespace at start and end of the 
+    		// description is ignored.
+    		for (int count = 0; count < taskList.size(); count++)
+    		{
+    			if (taskList.get(count).getDescription().equals(taskDescription.getText().trim()))
+    				duplicateDescription = true; // show error message
+    		}
     		
     		try {
     			Integer.parseInt(taskPriority.getText());
@@ -355,9 +365,14 @@ public class ToDoListUI extends javax.swing.JFrame {
     	
     		if(isInteger == false) {
     			JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
-      		} else {
+      		}
+    		else if (duplicateDescription)
+    		{
+    			JOptionPane.showMessageDialog(null, "Description must be unique.", "Error", JOptionPane.WARNING_MESSAGE);
+    		}
+    		else {
 	    		int data1 = Integer.parseInt(taskPriority.getText());
-	    	    String data2 = taskDescription.getText();
+	    	    String data2 = taskDescription.getText().trim();
 	    	    String data3 = taskDueDate.getText();
 	    	    String data4 = taskStatus.getSelectedItem().toString();
 	    	    String data5 = taskStartDate.getText();
