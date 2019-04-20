@@ -5,6 +5,11 @@
  * and open the template in the editor.
  */
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,7 +109,7 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
      
         
-        //Applies a sorter to the coumns of the table.
+        //Applies a sorter to the columns of the table.
         //Sort keys are used to keep the tasks added to the list in the order that the table is currently sorted by.
         TableRowSorter<TableModel> taskTableSort = new TableRowSorter<>(taskTable.getModel());
         taskTableSort.setSortsOnUpdates(true);
@@ -366,16 +371,56 @@ public class ToDoListUI extends javax.swing.JFrame {
 	    	    Task task = new Task(data1, data2, data3, data4, data5, data6);
     	    
 	    	    taskList.add(task);
+	    	    
+	    	    
     		}
     	    
     }                                       
 
     private void taskUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+    	
+    	
     }                                          
 
     private void openTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	try
+    	{
+    		FileInputStream fis = new FileInputStream("TaskList");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            
+            taskList = (ArrayList<Task>) ois.readObject();
+            
+            ois.close();
+            fis.close();
+    	}
+    	
+    	catch (IOException ioe)
+    	{
+    		JOptionPane.showMessageDialog(null, "The To Do List must be saved before loading.",
+    				"Error", JOptionPane.WARNING_MESSAGE);
+    	}
+    	catch (ClassNotFoundException c)
+    	{
+    		
+    	}
+    	
+    	DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
+    	model.setRowCount(0);
+    	for (int i = 0; i < taskList.size(); i++)
+    	{
+    		Object[] row = 
+    			  { taskList.get(i).getPriority(), 
+    				taskList.get(i).getDescription(), 
+    				taskList.get(i).getDueDate(), 
+    				taskList.get(i).getStatus(), 
+    				taskList.get(i).getStartDate(), 
+    				taskList.get(i).getEndDate() };
+    		
+    	    model.addRow(row);
+    	}
+    	
     }                                        
 
     private void printTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -408,10 +453,24 @@ public class ToDoListUI extends javax.swing.JFrame {
 
     private void deleteTaskActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+
     }                                          
 
     private void saveTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	try
+        {
+            FileOutputStream fos = new FileOutputStream("TaskList");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(taskList);
+            oos.close();
+            fos.close();
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+        
     }                                        
 
     private void taskUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
