@@ -5,12 +5,16 @@
  * and open the template in the editor.
  */
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import javax.swing.*;
@@ -442,6 +446,7 @@ public class ToDoListUI extends javax.swing.JFrame {
 
     private void printTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+    	ToDoListFunctions.print(taskList);
     }                                         
 
     private void taskPriorityActionPerformed(java.awt.event.ActionEvent evt) {                                             
