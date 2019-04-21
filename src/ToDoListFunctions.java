@@ -25,6 +25,9 @@ public class ToDoListFunctions {
 					taskList.remove(count);
 			}
 			
+			// Needed to add this so that the correct row is deleted when the 
+			// table has been sorted.
+			rowIndex = taskTable.convertRowIndexToModel(rowIndex);
 			// remove from the table.
 			model.removeRow(rowIndex);
 		}

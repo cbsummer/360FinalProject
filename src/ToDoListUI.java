@@ -343,54 +343,56 @@ public class ToDoListUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {       
-    	    		
-    		boolean isInteger = true;
-    		boolean duplicateDescription = false;
-    		
-    		// Checks for duplicate descriptions
-    		// Added .trim() so that whitespace at start and end of the 
-    		// description is ignored.
-    		for (int count = 0; count < taskList.size(); count++)
-    		{
-    			if (taskList.get(count).getDescription().equals(taskDescription.getText().trim()))
-    				duplicateDescription = true; // show error message
-    		}
-    		
-    		try {
-    			Integer.parseInt(taskPriority.getText());
-       		} catch (NumberFormatException e) {
-       			isInteger = false;
-       		}
-    	
-    		if(isInteger == false) {
-    			JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
-      		}
-    		else if (duplicateDescription)
-    		{
-    			JOptionPane.showMessageDialog(null, "Description must be unique.", "Error", JOptionPane.WARNING_MESSAGE);
-    		}
-    		else {
-	    		int data1 = Integer.parseInt(taskPriority.getText());
-	    	    String data2 = taskDescription.getText().trim();
-	    	    String data3 = taskDueDate.getText();
-	    	    String data4 = taskStatus.getSelectedItem().toString();
-	    	    String data5 = taskStartDate.getText();
-	    	    String data6 = taskEndDate.getText();
-    	        	    
-	    	    Object[] row = { data1, data2, data3, data4, data5, data6 };
-	    	    DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
-    	    
-	    	    model.addRow(row);
-	    	    
-	    	    Task task = new Task(data1, data2, data3, data4, data5, data6);
-    	    
-	    	    taskList.add(task);
-	    	    
-	    	    
-    		}
-    	    
-    }                                       
+	private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {
+
+		// added a boolean isUnique and iterated through taskList. Throws an error
+		// message if there is a duplicate
+
+		boolean isInteger = true;
+
+		try {
+			Integer.parseInt(taskPriority.getText());
+		} catch (NumberFormatException e) {
+			isInteger = false;
+		}
+
+		if (isInteger == false) {
+			JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
+		} else {
+			int data1 = Integer.parseInt(taskPriority.getText());
+			String data2 = taskDescription.getText();
+			String data3 = taskDueDate.getText();
+			String data4 = taskStatus.getSelectedItem().toString();
+			String data5 = taskStartDate.getText();
+			String data6 = taskEndDate.getText();
+
+			boolean isUnique = true;
+
+			for (Task iterator : taskList) {
+				if (iterator.getDescription().equals(taskDescription.getText())) {
+					isUnique = false;
+				}
+			}
+
+			if (isUnique == true) {
+
+				Object[] row = { data1, data2, data3, data4, data5, data6 };
+				DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
+
+				model.addRow(row);
+
+				Task task = new Task(data1, data2, data3, data4, data5, data6);
+
+				taskList.add(task);
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Cannot insert duplicate description.", "Error",
+						JOptionPane.WARNING_MESSAGE);
+			}
+
+		}
+
+	}                   
 
     private void taskUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
