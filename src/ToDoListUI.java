@@ -111,7 +111,6 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(taskTable);
         taskTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-     
         
         //Applies a sorter to the columns of the table.
         //Sort keys are used to keep the tasks added to the list in the order that the table is currently sorted by.
@@ -383,11 +382,42 @@ public class ToDoListUI extends javax.swing.JFrame {
 				Object[] row = { data1, data2, data3, data4, data5, data6 };
 				DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
 
-				model.addRow(row);
-
 				Task task = new Task(data1, data2, data3, data4, data5, data6);
-
-				taskList.add(task);
+				//taskList.add(task);
+				boolean foundDuplicate = ToDoListFunctions.add(taskList, task);
+				
+				// If no duplicates were found the task can be added normally.
+				if (!foundDuplicate)
+				{
+					model.addRow(row);
+				}
+				else
+				{
+					// Clear the list and add the tasks again with their new
+					// priorities
+					model.setRowCount(0);
+					for (int i = 0; i < taskList.size(); i++)
+			    	{
+			    		Object[] newRow = 
+			    			  { taskList.get(i).getPriority(), 
+			    				taskList.get(i).getDescription(), 
+			    				taskList.get(i).getDueDate(), 
+			    				taskList.get(i).getStatus(), 
+			    				taskList.get(i).getStartDate(), 
+			    				taskList.get(i).getEndDate() };
+			    		
+			    		
+			    	    model.addRow(newRow);
+			    	}
+				}
+				
+				// Clear the text fields after adding.
+				taskPriority.setText("");
+				taskDescription.setText("");
+				taskDueDate.setText("");
+				taskStartDate.setText("");
+				taskEndDate.setText("");
+				taskStatus.setSelectedIndex(0);
 
 			} else {
 				JOptionPane.showMessageDialog(null, "Cannot insert duplicate description.", "Error",
@@ -429,6 +459,11 @@ public class ToDoListUI extends javax.swing.JFrame {
     	
     	DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
     	model.setRowCount(0);
+    	
+    	// Sets SortKey to null so that tasks are reinserted exactly how they
+    	// are saved instead of int the current sorted order.
+    	//RowSorter rs = taskTable.getRowSorter();
+    	//rs.setSortKeys(null);
     	for (int i = 0; i < taskList.size(); i++)
     	{
     		Object[] row = 
@@ -439,9 +474,10 @@ public class ToDoListUI extends javax.swing.JFrame {
     				taskList.get(i).getStartDate(), 
     				taskList.get(i).getEndDate() };
     		
+    		
     	    model.addRow(row);
     	}
-    	
+    	  	
     }                                        
 
     private void printTaskActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -494,11 +530,13 @@ public class ToDoListUI extends javax.swing.JFrame {
         {
             ioe.printStackTrace();
         }
+    	
         
     }                                        
 
     private void taskUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
+        
     }                                           
 
     /**

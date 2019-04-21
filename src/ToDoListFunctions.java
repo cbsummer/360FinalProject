@@ -10,8 +10,54 @@ import javax.swing.table.DefaultTableModel;
 public class ToDoListFunctions {
 
 
-	public static void add() {
+	// Adds the tasks into the ArrayList based on their priority
+	// returns true if there was a duplicate priority that needed
+	// to be bumped down.
+	public static boolean add(ArrayList<Task> taskList, Task task) {
+		int size = taskList.size();
+		boolean notFound = true;
+		boolean foundDuplicate = false;
+		// insert at correct position
+		if (size == 0)
+		{
+			taskList.add(task);
+			notFound = false;
+		}
+		else {
+			for (int i = 0; i < size && notFound; i++)
+			{	
+				int value1 = task.getPriority();
+				int value2 = taskList.get(i).getPriority();
+				if (value1 <= value2)
+				{
+					taskList.add(i, task);
+					notFound = false;
+				}
+			}
+		}
+		if (notFound)
+		{
+			taskList.add(task);
+		}
 		
+		size = taskList.size();
+		
+		if (size > 1)
+		{
+			// bump down priority of duplicates
+			for (int i = 0; i < size - 1; i++)
+			{
+				int value1 = taskList.get(i).getPriority();
+				int value2 = taskList.get(i+1).getPriority();
+				if (value1 == value2)
+				{
+					taskList.get(i+1).setPriority(taskList.get(i+1).getPriority() + 1);
+					foundDuplicate = true;
+				}
+					
+			}
+		}
+		return foundDuplicate;
 	}
 	
 	// Deletes selected task from both the ArrayList and the table
