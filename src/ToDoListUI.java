@@ -435,82 +435,85 @@ public class ToDoListUI extends javax.swing.JFrame {
 
 		boolean isInteger = true;
 
-		try {
-			Integer.parseInt(taskPriority.getText());
-		} catch (NumberFormatException e) {
-			isInteger = false;
-		}
+		int rowIndex = taskTable.getSelectedRow();
+		if (rowIndex != -1) {
 
-		if (isInteger == false) {
-			JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
-		} else {
-			int data1 = Integer.parseInt(taskPriority.getText());
-			String data2 = taskDescription.getText();
-			String data3 = taskDueDate.getText();
-			String data4 = taskStatus.getSelectedItem().toString();
-			String data5 = taskStartDate.getText();
-			String data6 = taskEndDate.getText();
-
-			boolean isUnique = true;
-
-			for (Task iterator : taskList) {
-				if (iterator.getDescription().equals(taskDescription.getText())) {
-					isUnique = false;
-				}
-			}
-			
-			// if description wasn't changed don't count as duplicate.
-			int rowIndex = taskTable.getSelectedRow();
-			//rowIndex = taskTable.convertRowIndexToModel(rowIndex);
-			if (data2.equals(taskTable.getValueAt(rowIndex, 1)))
-			{
-				isUnique = true;
+			try {
+				Integer.parseInt(taskPriority.getText());
+			} catch (NumberFormatException e) {
+				isInteger = false;
 			}
 
-			if (isUnique == true) {
+			if (isInteger == false) {
+				JOptionPane.showMessageDialog(null, "Priority must be a number.", "Error", JOptionPane.WARNING_MESSAGE);
+			} else {
+				int data1 = Integer.parseInt(taskPriority.getText());
+				String data2 = taskDescription.getText();
+				String data3 = taskDueDate.getText();
+				String data4 = taskStatus.getSelectedItem().toString();
+				String data5 = taskStartDate.getText();
+				String data6 = taskEndDate.getText();
 
-				// Delete Element from ArrayList and taskTable
-				ToDoListFunctions.delete(taskList, taskTable);
-				
-				// Re-add the new task with edited fields
-				Object[] row = { data1, data2, data3, data4, data5, data6 };
-				DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
+				boolean isUnique = true;
 
-				Task task = new Task(data1, data2, data3, data4, data5, data6);
-				boolean foundDuplicate = ToDoListFunctions.add(taskList, task);
-
-				// If no duplicates were found the task can be added normally.
-				if (!foundDuplicate) {
-					model.addRow(row);
-				} else {
-					// Clear the list and add the tasks again with their new
-					// priorities
-					model.setRowCount(0);
-					for (int i = 0; i < taskList.size(); i++) {
-						Object[] newRow = { taskList.get(i).getPriority(), taskList.get(i).getDescription(),
-								taskList.get(i).getDueDate(), taskList.get(i).getStatus(),
-								taskList.get(i).getStartDate(), taskList.get(i).getEndDate() };
-
-						model.addRow(newRow);
+				for (Task iterator : taskList) {
+					if (iterator.getDescription().equals(taskDescription.getText())) {
+						isUnique = false;
 					}
 				}
 
-				// Clear the text fields after adding.
-				taskPriority.setText("");
-				taskDescription.setText("");
-				taskDueDate.setText("");
-				taskStartDate.setText("");
-				taskEndDate.setText("");
-				taskStatus.setSelectedIndex(0);
+				// if description wasn't changed don't count as duplicate.
+				rowIndex = taskTable.getSelectedRow();
+				// rowIndex = taskTable.convertRowIndexToModel(rowIndex);
+				if (data2.equals(taskTable.getValueAt(rowIndex, 1))) {
+					isUnique = true;
+				}
 
-			} else {
-				JOptionPane.showMessageDialog(null, "Cannot insert duplicate description.", "Error",
-						JOptionPane.WARNING_MESSAGE);
+				if (isUnique == true) {
+
+					// Delete Element from ArrayList and taskTable
+					ToDoListFunctions.delete(taskList, taskTable);
+
+					// Re-add the new task with edited fields
+					Object[] row = { data1, data2, data3, data4, data5, data6 };
+					DefaultTableModel model = (DefaultTableModel) taskTable.getModel();
+
+					Task task = new Task(data1, data2, data3, data4, data5, data6);
+					boolean foundDuplicate = ToDoListFunctions.add(taskList, task);
+
+					// If no duplicates were found the task can be added normally.
+					if (!foundDuplicate) {
+						model.addRow(row);
+					} else {
+						// Clear the list and add the tasks again with their new
+						// priorities
+						model.setRowCount(0);
+						for (int i = 0; i < taskList.size(); i++) {
+							Object[] newRow = { taskList.get(i).getPriority(), taskList.get(i).getDescription(),
+									taskList.get(i).getDueDate(), taskList.get(i).getStatus(),
+									taskList.get(i).getStartDate(), taskList.get(i).getEndDate() };
+
+							model.addRow(newRow);
+						}
+					}
+
+					// Clear the text fields after adding.
+					taskPriority.setText("");
+					taskDescription.setText("");
+					taskDueDate.setText("");
+					taskStartDate.setText("");
+					taskEndDate.setText("");
+					taskStatus.setSelectedIndex(0);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Cannot insert duplicate description.", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+
 			}
-
 		}
 
-	}                                      
+	}                                   
 
     private void openTaskActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
