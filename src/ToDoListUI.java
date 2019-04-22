@@ -461,7 +461,7 @@ public class ToDoListUI extends javax.swing.JFrame {
 			
 			// if description wasn't changed don't count as duplicate.
 			int rowIndex = taskTable.getSelectedRow();
-			rowIndex = taskTable.convertRowIndexToModel(rowIndex);
+			//rowIndex = taskTable.convertRowIndexToModel(rowIndex);
 			if (data2.equals(taskTable.getValueAt(rowIndex, 1)))
 			{
 				isUnique = true;
