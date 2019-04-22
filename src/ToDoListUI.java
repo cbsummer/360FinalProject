@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -111,6 +112,8 @@ public class ToDoListUI extends javax.swing.JFrame {
         taskTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(taskTable);
         taskTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        TableColumnModel columns =taskTable.getColumnModel();
+        columns.getColumn(1).setPreferredWidth(170);
         
         //Applies a sorter to the columns of the table.
         //Sort keys are used to keep the tasks added to the list in the order that the table is currently sorted by.
