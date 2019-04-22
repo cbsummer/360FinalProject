@@ -536,7 +536,20 @@ public class ToDoListUI extends javax.swing.JFrame {
 
     private void taskUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        
+    	try
+    	{
+    		int rowIndex = taskTable.getSelectedRow();
+        	taskPriority.setText(String.valueOf(taskTable.getValueAt(rowIndex, 0)));
+    		taskDescription.setText((String) taskTable.getValueAt(rowIndex, 1));
+    		taskDueDate.setText((String) taskTable.getValueAt(rowIndex, 2));
+    		taskStartDate.setText((String) taskTable.getValueAt(rowIndex, 4));
+    		taskEndDate.setText((String) taskTable.getValueAt(rowIndex, 5));
+    		taskStatus.setSelectedItem((String) taskTable.getValueAt(rowIndex, 3));
+    	}
+		catch (Exception ex)
+    	{
+			
+    	}
     }                                           
 
     /**
