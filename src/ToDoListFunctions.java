@@ -88,18 +88,6 @@ public class ToDoListFunctions {
 		}
 	}
 	
-	public static void modify() {
-		
-	}
-	
-	public static void save() {
-		
-	}
-	
-	public static void load() {
-		
-	}
-	
 	// Creates a text file representation of the To Do list.
 	public static void print(ArrayList<Task> taskList) {
 		// Creates and opens a file chooser so that the user
@@ -116,16 +104,16 @@ public class ToDoListFunctions {
         	try
         	{
         		PrintWriter newFile = new PrintWriter(new File(path + ".txt"));
-        		newFile.write("To Do List\n\n");
+        		newFile.write("To Do List" + System.lineSeparator() + System.lineSeparator());
         		
         		for (Task task : taskList)
         		{
-        			newFile.write("Priority: " + task.getPriority() + "\n");
-        			newFile.write("Description: " + task.getDescription() + "\n");
-        			newFile.write("Due Date: " + task.getDueDate() + "\n");
-        			newFile.write("Status: " + task.getStatus() + "\n");
-        			newFile.write("Start Date: " + task.getStartDate() + "\n");
-        			newFile.write("End Date: " + task.getEndDate() + "\n\n");
+        			newFile.write("Priority: " + task.getPriority() + System.lineSeparator());
+        			newFile.write("Description: " + task.getDescription() + System.lineSeparator());
+        			newFile.write("Due Date: " + task.getDueDate() + System.lineSeparator());
+        			newFile.write("Status: " + task.getStatus() + System.lineSeparator());
+        			newFile.write("Start Date: " + task.getStartDate() + System.lineSeparator());
+        			newFile.write("End Date: " + task.getEndDate() + System.lineSeparator() + System.lineSeparator());
         		}
         		newFile.close();
         		
@@ -136,17 +124,6 @@ public class ToDoListFunctions {
         	}
     	}
 	}
-	
-	public static void sort() {
-		
-	}
-	
-	public static void prioritySort(){
-						
-	}
-	
-	Object task;
-	
 
 }
 
