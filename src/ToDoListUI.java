@@ -159,16 +159,16 @@ public class ToDoListUI extends javax.swing.JFrame {
         jLabel5.setText("Start Date:");
         jLabel6.setText("End Date:");
         
-        taskDueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/dd/yyyy"))));
-        taskDueDate.setToolTipText("mm/dd/yyyy");
+        taskDueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/DD/YYYY"))));
+        taskDueDate.setToolTipText("MM/DD/YYYY");
 
         taskStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Not Started", "In Progress", "Finished" }));
 
-        taskStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/dd/yyyy"))));
-        taskStartDate.setToolTipText("mm/dd/yyyy");
+        taskStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/DD/YYYY"))));
+        taskStartDate.setToolTipText("MM/DD/YYYY");
 
-        taskEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/dd/yyyy"))));
-        taskEndDate.setToolTipText("mm/dd/yyyy");
+        taskEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("MM/DD/YYYY"))));
+        taskEndDate.setToolTipText("MM/DD/YYYY");
 
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
